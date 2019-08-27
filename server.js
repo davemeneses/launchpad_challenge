@@ -9,17 +9,16 @@ const PORT = process.env.PORT || 3000;
 const db = require("./models");
 
 //middleware
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(cors());
-app.use(bodyParser.json());
+// app.use(bodyParser.urlencoded({ extended: true }));
+// app.use(cors());
+// app.use(bodyParser.json());
 
-app.use(express.static(path.join(__dirname, "./client/build")));
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname + "./client/build/index.html"));
-});
+// app.use(express.static(path.join(__dirname, "./client/build")));
+// app.get("*", (req, res) => {
+//   res.sendFile(path.join(__dirname + "./client/build/index.html"));
+// });
 
-var routes = require("./controller");
-app.use(routes);
+// require("./routes")(app);
 
 // app.get("/", (req, res) => {
 //   res.send("Hello world");
