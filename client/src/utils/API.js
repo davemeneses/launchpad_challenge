@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export default {
-  submitVote: function(vote) {
-    return axios.post("/api/vote", vote);
+  submitVote: function(Vote) {
+    return axios.post("/api/vote", Vote);
   }
 };
