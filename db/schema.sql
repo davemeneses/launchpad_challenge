@@ -5,9 +5,9 @@ USE launchpad;
 DROP TABLE IF EXISTS votes;
 
 -- Create the burgers table
-CREATE TABLE votes (
-    id int NOT NULL AUTO_INCREMENT,
-    email varchar(255) NOT NULL,
-    framework varchar(255) NOT NULL,
-    PRIMARY KEY (id)
-);
+-- CREATE TABLE votes (
+--     id int NOT NULL AUTO_INCREMENT,
+--     email varchar(255) NOT NULL,
+--     framework varchar(255) NOT NULL,
+--     PRIMARY KEY (id)
+-- );

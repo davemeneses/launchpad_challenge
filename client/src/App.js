@@ -1,12 +1,9 @@
 import React from "react";
 import "./App.css";
+import ResultsContainer from "./components/ResultsContainer";
 
 function App() {
-  return (
-    <div className="App">
-      <p>this is react stuff</p>
-    </div>
-  );
+  return <ResultsContainer></ResultsContainer>;
 }
 
 export default App;
