@@ -1,24 +1,32 @@
 import React from "react";
+import { Button, Form, FormGroup, Label, Input } from "reactstrap";
 
 function VoterBox(props) {
   return (
-    <form>
-      <div>
-        <select onChange={props.handleChange} name="framework">
+    <Form>
+      <FormGroup>
+        <Label>Email</Label>
+        <Input
+          type="email"
+          name="email"
+          placeholder="example@launchpad.com"
+          onChange={props.handleChange}
+        />
+      </FormGroup>
+      <FormGroup>
+        <Label>Select</Label>
+        <Input type="select" onChange={props.handleChange} name="framework">
+          <option> </option>
           <option value="react">React</option>
           <option value="angular">Angular</option>
           <option value="ember">Ember</option>
           <option value="view">View</option>
-        </select>
-        {/* <button
-          onClick={props.handleFormSubmit}
-          className="btn btn-primary mt-3"
-        >
-          Search
-        </button> */}
-        <button onClick={props.handleSubmit}>Submit</button>
-      </div>
-    </form>
+        </Input>
+      </FormGroup>
+      <Button color="secondary" onClick={props.handleSubmit}>
+        Submit
+      </Button>
+    </Form>
   );
 }
 export default VoterBox;

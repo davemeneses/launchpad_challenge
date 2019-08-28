@@ -1,45 +1,53 @@
 import React, { Component } from "react";
 import VoterBox from "./VoterBox";
+import { Container } from "reactstrap";
+import API from "../utils/API";
 
 class ResultsContainer extends Component {
   state = {
+    apiData: [],
     hasVoted: false,
     voters: [],
+    email: "",
     framework: ""
   };
 
+  componentDidMount() {
+    // this.loadBooks();
+  }
+
+  postVote = () => {
+    API.submitVote({
+      email: this.state.email,
+      framework: this.state.framework
+    }).catch(err => console.log(err));
+  };
+
   handleChange = event => {
-    const name = event.target.name;
-    const value = event.target.value;
+    const { name, value } = event.target;
     this.setState({
       [name]: value
     });
-    // console.log(this.state.framework);
   };
+
   handleSubmit = event => {
     event.preventDefault();
-    console.log(this.state.framework);
+    if (this.state.framework === "" || this.state.email === "") {
+      alert("Please Enter Email");
+    } else this.postVote();
+    // console.log(this.state.framework);
+    // console.log(this.state.email);
   };
-
-  //   handleInputChange = event => {
-  //     // Pull the name and value properties off of the event.target (the element which triggered the event)
-  //     const { name, value } = event.target;
-
-  //     // Set the state for the appropriate input field
-  //     this.setState({
-  //       [name]: value
-  //     });
-  //   };
 
   render() {
     return (
-      <div>
+      <Container>
         <VoterBox
           framework={this.state.framework}
           handleChange={this.handleChange}
           handleSubmit={this.handleSubmit}
         ></VoterBox>
-      </div>
+      </Container>
     );
   }
 }
