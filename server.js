@@ -5,6 +5,7 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const app = express();
 const PORT = process.env.PORT || 3001;
+const path = require("path");
 
 const db = require("./models");
 
@@ -20,13 +21,6 @@ app.use(express.json());
 // });
 
 require("./routes/api-routes.js")(app);
-
-// app.get("/", (req, res) => {
-//   res.send("Hello world");
-// });
-// app.listen(PORT, () => {
-//   console.log(`Now listening on port ${PORT}`);
-// });
 
 db.sequelize.sync().then(function() {
   app.listen(PORT, function() {

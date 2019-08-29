@@ -7,20 +7,19 @@ class ResultsContainer extends Component {
   state = {
     apiData: [],
     hasVoted: false,
-    voters: [],
+    voters: "",
     email: "",
     framework: ""
   };
 
   componentDidMount() {
-    // this.loadBooks();
+    this.loadVotes();
   }
 
-  postVote = () => {
-    API.submitVote({
-      email: this.state.email,
-      framework: this.state.framework
-    }).catch(err => console.log(err));
+  loadVotes = () => {
+    API.getVotes()
+      .then(res => this.setState({ voters: res.data }))
+      .catch(err => console.log(err));
   };
 
   handleChange = event => {
@@ -33,13 +32,19 @@ class ResultsContainer extends Component {
   handleSubmit = event => {
     event.preventDefault();
     if (this.state.framework === "" || this.state.email === "") {
-      alert("Please Enter Email");
-    } else this.postVote();
-    // console.log(this.state.framework);
-    // console.log(this.state.email);
+      alert("Please enter an email address and select a framework.");
+    } else
+      API.submitVote({
+        email: this.state.email,
+        framework: this.state.framework
+      })
+        .then(res => console.log(res))
+        .catch(err => console.log(err));
   };
 
   render() {
+    console.log(this.state.voters);
+
     return (
       <Container>
         <VoterBox
