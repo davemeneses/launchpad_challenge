@@ -1,6 +1,5 @@
 //Express is the server framework when working with Node
 const express = require("express");
-//Gets the body off of a network request
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const app = express();
