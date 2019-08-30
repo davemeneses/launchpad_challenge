@@ -48,15 +48,15 @@ class ResultsContainer extends Component {
     this.setState({ apiData: githubData });
   };
 
-  startLoop = () => {
-    setInterval(this.frameworkLoop, 10000);
-  };
+  // startLoop = () => {
+  //   setInterval(this.frameworkLoop, 10000);
+  // };
 
-  frameworkLoop = () => {
-    this.setState({ count: this.state.count + 1 });
-    console.log("we looped, count: ", this.state.count);
-    this.loadFrameworkData();
-  };
+  // frameworkLoop = () => {
+  //   this.setState({ count: this.state.count + 1 });
+  //   console.log("we looped, count: ", this.state.count);
+  //   this.loadFrameworkData();
+  // };
 
   loadVotes = () => {
     API.getVotes()

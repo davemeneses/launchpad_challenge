@@ -2,7 +2,8 @@ import React from "react";
 import { Table } from "reactstrap";
 
 const FrameworkData = props => {
-  console.log("this is props on FrameworkData ", props.apiData);
+  console.log(props.apiData);
+
   return (
     <Table hover>
       <thead>
@@ -14,11 +15,12 @@ const FrameworkData = props => {
         </tr>
       </thead>
       <tbody>
+        {/* {props.apiData} */}
         <tr>
-          <th></th>
-          <td>Stars</td>
-          <td>Forks</td>
-          <td>Issues</td>
+          <th>data</th>
+          <td>will</td>
+          <td>go</td>
+          <td>here</td>
         </tr>
       </tbody>
     </Table>
