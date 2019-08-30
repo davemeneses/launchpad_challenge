@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import VoterBox from "./VoterBox";
-// import FrameworkInfo from "./FrameworkInfo";
+import VoterForm from "../components/VoterForm";
+import FrameworksData from "../components/FrameworkData";
 import { Container } from "reactstrap";
 import API from "../utils/API";
 
@@ -99,13 +99,14 @@ class ResultsContainer extends Component {
     if (!this.state.voteSuccess) {
       return (
         <Container>
-          <VoterBox
+          <FrameworksData></FrameworksData>
+          <VoterForm
             framework={this.state.framework}
             handleChange={this.handleChange}
             handleSubmit={this.handleSubmit}
             emailError={this.state.emailError}
             frameworkError={this.state.frameworkError}
-          ></VoterBox>
+          ></VoterForm>
         </Container>
       );
     } else {

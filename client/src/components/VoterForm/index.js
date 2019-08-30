@@ -1,7 +1,7 @@
 import React from "react";
 import { Button, Form, FormGroup, Label, Input } from "reactstrap";
 
-function VoterBox(props) {
+function VoterForm(props) {
   return (
     <Form>
       <FormGroup>
@@ -33,4 +33,4 @@ function VoterBox(props) {
     </Form>
   );
 }
-export default VoterBox;
+export default VoterForm;
