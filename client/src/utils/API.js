@@ -1,9 +1,9 @@
 import axios from "axios";
 
 export default {
-  getVotes: function() {
-    return axios.get("/api/vote");
-  },
+  // getVotes: function() {
+  //   return axios.get("/api/vote");
+  // },
 
   checkVote: function(id) {
     return axios.get("/api/vote/" + id);

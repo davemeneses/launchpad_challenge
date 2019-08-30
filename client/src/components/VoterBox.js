@@ -12,6 +12,7 @@ function VoterBox(props) {
           placeholder="example@launchpad.com"
           onChange={props.handleChange}
         />
+        <div style={{ fontSize: "16px", color: "red" }}>{props.emailError}</div>
       </FormGroup>
       <FormGroup>
         <Label>Select</Label>
@@ -22,6 +23,9 @@ function VoterBox(props) {
           <option value="ember">Ember</option>
           <option value="view">View</option>
         </Input>
+        <div style={{ fontSize: "16px", color: "red" }}>
+          {props.frameworkError}
+        </div>
       </FormGroup>
       <Button color="secondary" onClick={props.handleSubmit}>
         Submit
