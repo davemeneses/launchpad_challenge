@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import VoterForm from "../components/VoterForm";
-import FrameworkData from "../components/FrameworkData";
+// import FrameworkData from "../components/FrameworkData";
 import Jumbo from "../components/Jumbo";
 import Thanks from "../components/Thanks";
 import { Container } from "reactstrap";
@@ -16,8 +16,8 @@ class ResultsContainer extends Component {
     frameworkError: "",
     voteSuccess: false,
     validateSession: false,
-    apiData: [],
-    count: 0
+    apiData: []
+    // count: 0
   };
 
   componentDidMount() {
@@ -26,27 +26,28 @@ class ResultsContainer extends Component {
     // this.startLoop();
   }
 
-  loadFrameworkData = () => {
-    const frameworkPaths = [
-      "facebook/react",
-      "angular/angular.js",
-      "emberjs/ember.js",
-      "vuejs/vue"
-    ];
-    let githubData = [];
+  // loadFrameworkData = () => {
+  // const frameworkPaths = [
+  //   "facebook/react",
+  //   "angular/angular.js",
+  //   "emberjs/ember.js",
+  //   "vuejs/vue"
+  // ];
+  //   let githubData = [];
 
-    for (let i = 0; i < frameworkPaths.length; i++) {
-      axios
-        .get(`https://api.github.com/repos/${frameworkPaths[i]}`)
-        .then(res => {
-          githubData.push(res.data);
-        })
-        .catch(error => {
-          console.log("Error fetching and parsing data", error);
-        });
-    }
-    this.setState({ apiData: githubData });
-  };
+  //   for (let i = 0; i < frameworkPaths.length; i++) {
+  //     axios
+  //       .get(`https://api.github.com/repos/${frameworkPaths[i]}`)
+  //       .then(res => {
+  //         console.log("res.data: ", res.data);
+  //         githubData.push(res.data);
+  //       })
+  //       .catch(error => {
+  //         console.log("Error fetching and parsing data", error);
+  //       });
+  //   }
+  //   this.setState({ apiData: githubData });
+  // };
 
   // startLoop = () => {
   //   setInterval(this.frameworkLoop, 10000);
@@ -57,12 +58,6 @@ class ResultsContainer extends Component {
   //   console.log("we looped, count: ", this.state.count);
   //   this.loadFrameworkData();
   // };
-
-  loadVotes = () => {
-    API.getVotes()
-      .then(res => this.setState({ voters: res.data }))
-      .catch(err => console.log(err));
-  };
 
   recordVote = () => {
     API.submitVote({
@@ -144,12 +139,13 @@ class ResultsContainer extends Component {
   };
 
   render() {
+    console.log(this.state.apiData);
     if (!this.state.voteSuccess) {
       return (
         <div>
           <Jumbo></Jumbo>
           <Container>
-            <FrameworkData apiData={this.state.apiData}></FrameworkData>
+            {/* <FrameworkData apiData={this.state.apiData}></FrameworkData> */}
             <VoterForm
               framework={this.state.framework}
               handleChange={this.handleChange}

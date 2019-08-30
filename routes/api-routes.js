@@ -4,6 +4,7 @@ module.exports = function(app) {
   // gets all people who have voted
   app.get("/api/vote", function(req, res) {
     db.Vote.findAll({}).then(function(Vote) {
+      console.log("find all: ", res.json(Vote));
       res.json(Vote);
     });
   });
@@ -30,4 +31,8 @@ module.exports = function(app) {
         });
     });
   });
+
+  // app.get("/frameworks", function(req, res){
+  //   axios
+  // })
 };
