@@ -1,6 +1,9 @@
 import React, { Component } from "react";
+import axios from "axios";
 import VoterForm from "../components/VoterForm";
-import FrameworksData from "../components/FrameworkData";
+import FrameworkData from "../components/FrameworkData";
+import Jumbo from "../components/Jumbo";
+import Thanks from "../components/Thanks";
 import { Container } from "reactstrap";
 import API from "../utils/API";
 
@@ -12,7 +15,47 @@ class ResultsContainer extends Component {
     emailError: "",
     frameworkError: "",
     voteSuccess: false,
-    validateSession: false
+    validateSession: false,
+    apiData: [],
+    count: 0
+  };
+
+  componentDidMount() {
+    sessionStorage.setItem("voted", false);
+    this.loadFrameworkData();
+    // this.startLoop();
+  }
+
+  loadFrameworkData = () => {
+    const frameworkPaths = [
+      "facebook/react",
+      "angular/angular.js",
+      "emberjs/ember.js",
+      "vuejs/vue"
+    ];
+    let githubData = [];
+
+    for (let i = 0; i < frameworkPaths.length; i++) {
+      axios
+        .get(`https://api.github.com/repos/${frameworkPaths[i]}`)
+        .then(res => {
+          githubData.push(res.data);
+        })
+        .catch(error => {
+          console.log("Error fetching and parsing data", error);
+        });
+    }
+    this.setState({ apiData: githubData });
+  };
+
+  startLoop = () => {
+    setInterval(this.frameworkLoop, 10000);
+  };
+
+  frameworkLoop = () => {
+    this.setState({ count: this.state.count + 1 });
+    console.log("we looped, count: ", this.state.count);
+    this.loadFrameworkData();
   };
 
   loadVotes = () => {
@@ -44,7 +87,11 @@ class ResultsContainer extends Component {
 
   validateEmail = () => {
     let emailError = "";
-    if (!this.state.email.includes("@") || this.state.email === "") {
+    if (
+      !this.state.email.includes("@") ||
+      this.state.email === "" ||
+      sessionStorage.getItem("voted") === true
+    ) {
       emailError = "invalid email";
     }
     if (emailError) {
@@ -79,6 +126,7 @@ class ResultsContainer extends Component {
             emailError = "Only 1 vote permitted per employee";
             this.setState({ emailError });
           } else {
+            sessionStorage.setItem("voted", true);
             emailError = "";
             frameworkError = "";
             voteSuccess = true;
@@ -98,23 +146,22 @@ class ResultsContainer extends Component {
   render() {
     if (!this.state.voteSuccess) {
       return (
-        <Container>
-          <FrameworksData></FrameworksData>
-          <VoterForm
-            framework={this.state.framework}
-            handleChange={this.handleChange}
-            handleSubmit={this.handleSubmit}
-            emailError={this.state.emailError}
-            frameworkError={this.state.frameworkError}
-          ></VoterForm>
-        </Container>
+        <div>
+          <Jumbo></Jumbo>
+          <Container>
+            <FrameworkData apiData={this.state.apiData}></FrameworkData>
+            <VoterForm
+              framework={this.state.framework}
+              handleChange={this.handleChange}
+              handleSubmit={this.handleSubmit}
+              emailError={this.state.emailError}
+              frameworkError={this.state.frameworkError}
+            ></VoterForm>
+          </Container>
+        </div>
       );
     } else {
-      return (
-        <Container>
-          <h1>Thanks for voting!</h1>
-        </Container>
-      );
+      return <Thanks></Thanks>;
     }
   }
 }

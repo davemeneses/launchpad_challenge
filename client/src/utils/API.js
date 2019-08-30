@@ -7,7 +7,5 @@ export default {
 
   submitVote: function(Vote) {
     return axios.post("/api/vote", Vote);
-  },
-
-  githubData: function() {}
+  }
 };
