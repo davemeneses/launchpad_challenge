@@ -1,24 +1,28 @@
 import React, { Component } from "react";
 import VoterBox from "./VoterBox";
+import FrameworkInfo from "./FrameworkInfo";
 import { Container } from "reactstrap";
 import API from "../utils/API";
 
 class ResultsContainer extends Component {
   state = {
-    apiData: [],
     hasVoted: false,
-    voters: "",
     email: "",
     framework: ""
   };
 
-  componentDidMount() {
-    this.loadVotes();
-  }
-
   loadVotes = () => {
     API.getVotes()
       .then(res => this.setState({ voters: res.data }))
+      .catch(err => console.log(err));
+  };
+
+  recordVote = () => {
+    API.submitVote({
+      email: this.state.email,
+      framework: this.state.framework
+    })
+      .then(res => console.log(res))
       .catch(err => console.log(err));
   };
 
@@ -38,15 +42,18 @@ class ResultsContainer extends Component {
         email: this.state.email,
         framework: this.state.framework
       })
-        .then(res => console.log(res))
+        .then(res => {
+          if (res.data.error)
+            alert("Please enter a valid, unique email address");
+          else alert("Vote Submitted");
+        })
         .catch(err => console.log(err));
   };
 
   render() {
-    console.log(this.state.voters);
-
     return (
       <Container>
+        <FrameworkInfo></FrameworkInfo>
         <VoterBox
           framework={this.state.framework}
           handleChange={this.handleChange}
