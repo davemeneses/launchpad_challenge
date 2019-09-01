@@ -1,61 +1,44 @@
 import React from "react";
-import { Table } from "reactstrap";
+import axios from "axios";
 
-const FrameworkData = props => {
-  console.log(props.apiData);
-
-  Object.keys(props.apiData).map(function(keyName, keyIndex) {});
-  return (
-    <Table hover>
-      <thead>
-        <tr>
-          <th>Framework</th>
-          <th>Stars</th>
-          <th>Forks</th>
-          <th>Issues</th>
-        </tr>
-      </thead>
+class FrameworkData extends React.Component {
+  state = {
+    issuesCount: 0,
+    twoWeekCommits: 0,
+    stars: 0
+  };
+  componentDidMount() {
+    console.log("in framework js: ", this.props.framework);
+    axios
+      .get(`http://localhost:5000/framework/${this.props.framework}`)
+      .then(data => {
+        console.log("returned FW data: ", data);
+        this.setState({
+          name: data.data.name,
+          issuesCount: data.data.issues,
+          twoWeekCommits: data.data.commits,
+          stars: data.data.stars
+        });
+      });
+    // this.setState({
+    //   name: "react",
+    //   issuesCount: "some",
+    //   twoWeekCommits: "90",
+    //   stars: "love em"
+    // });
+  }
+  render() {
+    console.log("this is the state: ", this.state);
+    return (
       <tbody>
-        {/* {props.apiData} */}
         <tr>
-          <th>data</th>
-          <td>will</td>
-          <td>go</td>
-          <td>here</td>
+          <th>{this.state.name}</th>
+          <td>{this.state.stars}</td>
+          <td>{this.state.issuesCount}</td>
+          <td>{this.state.twoWeekCommits}</td>
         </tr>
       </tbody>
-    </Table>
-  );
-};
+    );
+  }
+}
 export default FrameworkData;
-
-// import React, { Component } from "react";
-// import { Table } from "reactstrap";
-
-// class FrameworkData extends Component {
-//   render(props) {
-//     console.log(props);
-//     return (
-//       <Table hover>
-//         <thead>
-//           <tr>
-//             <th>Framework</th>
-//             <th>Stars</th>
-//             <th>Forks</th>
-//             <th>Issues</th>
-//           </tr>
-//         </thead>
-//         <tbody>
-//           {/* {props.apiData} */}
-//           <tr>
-//             <th>data</th>
-//             <td>will</td>
-//             <td>go</td>
-//             <td>here</td>
-//           </tr>
-//         </tbody>
-//       </Table>
-//     );
-//   }
-// }
-// export default FrameworkData;

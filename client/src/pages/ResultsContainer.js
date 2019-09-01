@@ -1,10 +1,9 @@
 import React, { Component } from "react";
-import axios from "axios";
 import VoterForm from "../components/VoterForm";
-// import FrameworkData from "../components/FrameworkData";
+import FrameworkData from "../components/FrameworkData";
 import Jumbo from "../components/Jumbo";
 import Thanks from "../components/Thanks";
-import { Container } from "reactstrap";
+import { Container, Table } from "reactstrap";
 import API from "../utils/API";
 
 class ResultsContainer extends Component {
@@ -17,47 +16,21 @@ class ResultsContainer extends Component {
     voteSuccess: false,
     validateSession: false,
     apiData: []
-    // count: 0
   };
 
   componentDidMount() {
     sessionStorage.setItem("voted", false);
-    this.loadFrameworkData();
-    // this.startLoop();
   }
 
-  // loadFrameworkData = () => {
-  // const frameworkPaths = [
-  //   "facebook/react",
-  //   "angular/angular.js",
-  //   "emberjs/ember.js",
-  //   "vuejs/vue"
-  // ];
-  //   let githubData = [];
+  startLoop = () => {
+    setInterval(this.frameworkLoop, 10000);
+  };
 
-  //   for (let i = 0; i < frameworkPaths.length; i++) {
-  //     axios
-  //       .get(`https://api.github.com/repos/${frameworkPaths[i]}`)
-  //       .then(res => {
-  //         console.log("res.data: ", res.data);
-  //         githubData.push(res.data);
-  //       })
-  //       .catch(error => {
-  //         console.log("Error fetching and parsing data", error);
-  //       });
-  //   }
-  //   this.setState({ apiData: githubData });
-  // };
-
-  // startLoop = () => {
-  //   setInterval(this.frameworkLoop, 10000);
-  // };
-
-  // frameworkLoop = () => {
-  //   this.setState({ count: this.state.count + 1 });
-  //   console.log("we looped, count: ", this.state.count);
-  //   this.loadFrameworkData();
-  // };
+  frameworkLoop = () => {
+    this.setState({ count: this.state.count + 1 });
+    console.log("we looped, count: ", this.state.count);
+    this.loadFrameworkData();
+  };
 
   recordVote = () => {
     API.submitVote({
@@ -139,13 +112,25 @@ class ResultsContainer extends Component {
   };
 
   render() {
-    console.log(this.state.apiData);
     if (!this.state.voteSuccess) {
       return (
         <div>
           <Jumbo></Jumbo>
           <Container>
-            {/* <FrameworkData apiData={this.state.apiData}></FrameworkData> */}
+            <Table hover>
+              <thead>
+                <tr>
+                  <th>Framework</th>
+                  <th>Stars</th>
+                  <th>Issues Resolved</th>
+                  <th>Total Commits</th>
+                </tr>
+              </thead>
+              <FrameworkData framework={"facebook/react"}></FrameworkData>
+              <FrameworkData framework={"angular/angular.js"}></FrameworkData>
+              {/* <FrameworkData framework={"emberjs/ember.js/"}></FrameworkData> */}
+              {/* <FrameworkData framework={"vuejs/vue"}></FrameworkData> */}
+            </Table>
             <VoterForm
               framework={this.state.framework}
               handleChange={this.handleChange}
