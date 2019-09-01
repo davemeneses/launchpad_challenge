@@ -8,24 +8,24 @@ class FrameworkData extends React.Component {
     stars: 0
   };
   componentDidMount() {
-    console.log("in framework js: ", this.props.framework);
-    axios
-      .get(`http://localhost:5000/framework/${this.props.framework}`)
-      .then(data => {
-        console.log("returned FW data: ", data);
-        this.setState({
-          name: data.data.name,
-          issuesCount: data.data.issues,
-          twoWeekCommits: data.data.commits,
-          stars: data.data.stars
-        });
-      });
-    // this.setState({
-    //   name: "react",
-    //   issuesCount: "some",
-    //   twoWeekCommits: "90",
-    //   stars: "love em"
-    // });
+    // console.log("in framework js: ", this.props.framework);
+    // axios
+    //   .get(`http://localhost:5000/framework/${this.props.framework}`)
+    //   .then(data => {
+    //     console.log("returned FW data: ", data);
+    //     this.setState({
+    //       name: data.data.name,
+    //       issuesCount: data.data.issues,
+    //       twoWeekCommits: data.data.commits,
+    //       stars: data.data.stars
+    //     });
+    //   });
+    this.setState({
+      name: "framework name",
+      issuesCount: "# offramework issuess",
+      twoWeekCommits: "# of issues commited in the past 2 weeks",
+      stars: "# of users who starred"
+    });
   }
   render() {
     console.log("this is the state: ", this.state);
