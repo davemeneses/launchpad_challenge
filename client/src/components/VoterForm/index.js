@@ -18,10 +18,10 @@ function VoterForm(props) {
         <Label>Select</Label>
         <Input type="select" onChange={props.handleChange} name="framework">
           <option> </option>
-          <option value="react">React</option>
           <option value="angular">Angular</option>
           <option value="ember">Ember</option>
-          <option value="view">View</option>
+          <option value="react">React</option>
+          <option value="vue">Vue</option>
         </Input>
         <div style={{ fontSize: "16px", color: "red" }}>
           {props.frameworkError}

@@ -22,16 +22,6 @@ class ResultsContainer extends Component {
     sessionStorage.setItem("voted", false);
   }
 
-  startLoop = () => {
-    setInterval(this.frameworkLoop, 10000);
-  };
-
-  frameworkLoop = () => {
-    this.setState({ count: this.state.count + 1 });
-    console.log("we looped, count: ", this.state.count);
-    this.loadFrameworkData();
-  };
-
   recordVote = () => {
     API.submitVote({
       email: this.state.email,
@@ -60,7 +50,7 @@ class ResultsContainer extends Component {
       this.state.email === "" ||
       sessionStorage.getItem("voted") === true
     ) {
-      emailError = "invalid email";
+      emailError = "invalid email/already voted";
     }
     if (emailError) {
       this.setState({ emailError });
@@ -122,14 +112,14 @@ class ResultsContainer extends Component {
                 <tr>
                   <th>Framework</th>
                   <th>Stars</th>
-                  <th>Issues Resolved</th>
-                  <th>Total Commits</th>
+                  <th>Lifetime Number of Issues Closed</th>
+                  <th>2 Week Commit Count</th>
                 </tr>
               </thead>
               <FrameworkData framework={"facebook/react"}></FrameworkData>
               <FrameworkData framework={"angular/angular.js"}></FrameworkData>
-              {/* <FrameworkData framework={"emberjs/ember.js/"}></FrameworkData> */}
-              {/* <FrameworkData framework={"vuejs/vue"}></FrameworkData> */}
+              <FrameworkData framework={"emberjs/ember.js/"}></FrameworkData>
+              <FrameworkData framework={"vuejs/vue"}></FrameworkData>
             </Table>
             <VoterForm
               framework={this.state.framework}

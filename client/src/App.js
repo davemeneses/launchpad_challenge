@@ -1,5 +1,4 @@
 import React from "react";
-import "./App.css";
 import ResultsContainer from "./pages/ResultsContainer";
 
 function App() {

@@ -1,5 +1,4 @@
 const db = require("../models");
-// const moment = require('moment')
 const axios = require("axios");
 let axiosGH = axios.create({
   headers: {
@@ -8,19 +7,38 @@ let axiosGH = axios.create({
   }
 });
 
-// console.log("today's date: " + moment())
-
 module.exports = function(app) {
   // gets all people who have voted
   app.get("/api/vote", function(req, res) {
-    db.Vote.findAll({}).then(function(Vote) {
-      console.log("find all: ", res.json(Vote));
-      res.json(Vote);
+    db.Vote.findAll({}).then(function(votes) {
+      let votingResults = {
+        react: 0,
+        angular: 0,
+        ember: 0,
+        vue: 0
+      };
+
+      for (let i = 0; i < votes.length; i++) {
+        switch (votes[i].framework) {
+          case "react":
+            votingResults.react = votingResults.react + 1;
+            break;
+          case "angular":
+            votingResults.angular = votingResults.angular + 1;
+            break;
+          case "ember":
+            votingResults.ember = votingResults.ember + 1;
+            break;
+          case "vue":
+            votingResults.vue = votingResults.vue + 1;
+            break;
+        }
+      }
+      res.json(votingResults);
     });
   });
 
   app.post("/api/vote/", function(req, res) {
-    // console.log(req.body);
     db.Vote.findOne({
       where: {
         email: req.body.email
@@ -46,17 +64,15 @@ module.exports = function(app) {
     let reactData = {
       name: "React"
     };
-    console.log("params: ", req.params);
-    res.send("test");
     axiosGH
       .get(
-        `https://api.github.com/repos/${req.param.org}/${req.param.framework}`
+        `https://api.github.com/repos/${req.params.org}/${req.params.framework}`
       )
       .then(function(starData) {
         reactData.stars = starData.data.stargazers_count;
         axiosGH
           .get(
-            `https://api.github.com/repos/${req.param.org}/${req.param.framework}/stats/participation`
+            `https://api.github.com/repos/${req.params.org}/${req.params.framework}/stats/participation`
           )
           .then(function(commitData) {
             let twoWeekTotal =
@@ -65,7 +81,7 @@ module.exports = function(app) {
             reactData.commits = twoWeekTotal;
             axiosGH
               .get(
-                `https://api.github.com/search/issues?q=repo:${req.param.org}/${req.param.framework}+type:issue+state:closed`
+                `https://api.github.com/search/issues?q=repo:${req.params.org}/${req.params.framework}+type:issue+state:closed`
               )
               .then(function(issueData) {
                 reactData.issues = issueData.data.total_count;
