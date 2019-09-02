@@ -4,7 +4,6 @@ const cors = require("cors");
 const app = express();
 const PORT = process.env.PORT || 5000;
 const path = require("path");
-
 const db = require("./models");
 require("dotenv").config();
 app.use(bodyParser.urlencoded({ extended: true }));
