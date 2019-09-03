@@ -14,9 +14,11 @@ Click [here](https://launchpad-challenge.herokuapp.com/) to view a live demo of 
 
 4. Create a .env file and inside add `TOKEN_GHITHUB_ENTERPRISE=` with the value of a key you grab from [here](https://help.github.com/en/articles/creating-a-personal-access-token-for-the-command-line).
 
-5. Navigate to `http://localhost:5000/` to view the app.
+5. In the `client` folder run the command `npm run build`
 
-6. Submit your vote! Only one vote will be accepted per email and session.
+6. Navigate to `http://localhost:5000/` to view the app.
+
+7. Submit your vote! Only one vote will be accepted per email and session.
 
 ## Challenge Goal
 
@@ -60,3 +62,4 @@ To get "live" data a call is made to the GitHub API every 15 seconds and the new
 - Sorting: For now, with only 3 data points being displayed there was not much need for sorting. If it were to be implemented making dynamic endpoints for the GitHub API route that changed based on what data the user wanted to view would be the next step.
 - Socket.Io/JWT/Cookies Session Tracking: If a log in were required for user to make a vote it would be easy to implement JWT, Socket.Io, or Cookies for session tracking. This is a little better for truly tracking a user's "session" rather than sessionStorage.
 - More styled front end: The goal for this project was to be robust and clear. More time could be spent styling to make it more visually appealing.
+- Authenticated GitHubApp: This would allow for a higher API request rate and would be able to even more frequently update the framework data.
