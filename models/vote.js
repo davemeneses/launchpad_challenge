@@ -1,6 +1,6 @@
-const voteSeeds = require("./seeds");
+const voteSeeds = require("../scripts/seeds");
 
-//this set up the model I used for the DB to store each individual vote.
+// this set up the model I used for the DB to store each individual vote.
 module.exports = function(sequelize, DataTypes) {
   let Vote = sequelize.define("Vote", {
     email: DataTypes.STRING,
