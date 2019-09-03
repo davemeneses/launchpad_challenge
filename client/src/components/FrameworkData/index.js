@@ -9,14 +9,14 @@ class FrameworkData extends React.Component {
     stars: 0
   };
   componentDidMount() {
-    // axios.get(`/framework/${this.props.framework}`).then(data => {
-    //   this.setState({
-    //     name: data.data.name,
-    //     issuesCount: data.data.issues,
-    //     twoWeekCommits: data.data.commits,
-    //     stars: data.data.stars
-    //   });
-    // });
+    axios.get(`/framework/${this.props.framework}`).then(data => {
+      this.setState({
+        name: data.data.name,
+        issuesCount: data.data.issues,
+        twoWeekCommits: data.data.commits,
+        stars: data.data.stars
+      });
+    });
 
     this.setState({
       name: this.props.framework,
