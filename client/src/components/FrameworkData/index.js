@@ -30,16 +30,14 @@ class FrameworkData extends React.Component {
 
   dataReset() {
     setInterval(() => {
-      axios
-        .get(`http://localhost:5000/framework/${this.props.framework}`)
-        .then(data => {
-          this.setState({
-            name: data.data.name,
-            issuesCount: data.data.issues,
-            twoWeekCommits: data.data.commits,
-            stars: data.data.stars
-          });
+      axios.get(`/framework/${this.props.framework}`).then(data => {
+        this.setState({
+          name: data.data.name,
+          issuesCount: data.data.issues,
+          twoWeekCommits: data.data.commits,
+          stars: data.data.stars
         });
+      });
     }, 15000);
   }
 
