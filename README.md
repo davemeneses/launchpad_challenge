@@ -1,6 +1,6 @@
 # LaunchPad Challenge
 
-LaunchPad Labs is working hard to evaluate popular client-side Javascript frameworks. They need a tool that will help them easily compare frameworks based on GitHub activity. This app shows how many users have starred a framework, how many forks there have been of it, and the current number of issues. After viewing the data users may vote for their preferred one by selecting the framework from a dropdown and then entering their email address.
+LaunchPad Labs is working hard to evaluate popular client-side Javascript frameworks. They need a tool that will help them easily compare frameworks based on GitHub activity. This app shows how many users have starred a framework, the lifetime number of issues closed for the framework, and the number of commits to it for the past 2 weeks. After viewing the data users may vote for their preferred one by selecting the framework from a dropdown and then entering their email address.
 
 Click [here](https://launchpad-challenge.herokuapp.com/) to view a live demo of the app.
 
@@ -40,11 +40,11 @@ When a user enters their information, selects a framework, and clicks submit sev
 - A call is made the the DB to check to see if the email has already submitted a vote.
 - A check is made in the Session Storage to see if "voted" is true or false.
 
-Each of these things independently will stop the vote from being submitted. After a successful vote is cast "voted" in Session Store is changed to "true, the user's information is sent to our DB, and the screen rerenders to the results page displaying the current number of votes for each framework.
+Each of these things independently will stop the vote from being submitted. After a successful vote is cast "voted" in Session Store is changed to "true". The user's information is then sent to our DB and the screen switches to the results page displaying the current number of votes for each framework.
 
 **Show updates to the dashboard without a refresh**
 
-To get "live" data a call is made to the GitHub API every 15 seconds and the new information is saved via the setState method. React will re-render just the framework data without a page refresh making the page "live". I do run into API rate limiting problems so for the deployed site I have it just making the initial call on page load to populate the information. To turn on the continuous call locally navigate to `client/src/components/FrameworkData/index.js` and uncomment `this.dataReset()` in `componentDidMount`. This is all accessed through a single route `/framework/:org/:framework` and then that route looks at the props passed to each row of framework data and makes the correct requests to GitHub. Promise.all was another option instead of daisy-chaining axios calls.
+To get "live" data a call is made to the GitHub API every 15 seconds and the new information is displayed via the setState method. React will re-render just the framework data without a page refresh making the page "live". I do run into API rate limiting problems so the deployed site only makes a call on the initial page load and then populates the framework information. To turn on the continuous call locally navigate to `client/src/components/FrameworkData/index.js` and uncomment `this.dataReset()` in `componentDidMount`. This data is all accessed through a single route `/framework/:org/:framework`. That route looks at the props passed to each row of framework data via `req.params` and makes the correct requests to GitHub. Promise.all was another option instead of daisy-chaining axios calls.
 
 ## Technologies
 
@@ -60,6 +60,6 @@ To get "live" data a call is made to the GitHub API every 15 seconds and the new
 ## Stretch Goals/Further Development
 
 - Sorting: For now, with only 3 data points being displayed there was not much need for sorting. If it were to be implemented making dynamic endpoints for the GitHub API route that changed based on what data the user wanted to view would be the next step.
-- Socket.Io/JWT/Cookies Session Tracking: If a log in were required for user to make a vote it would be easy to implement JWT, Socket.Io, or Cookies for session tracking. This is a little better for truly tracking a user's "session" rather than sessionStorage.
+- Socket.Io/JWT/Cookies Session Tracking: If a log in were required for user to make a vote it would be easy to implement JWT, Socket.Io, or Cookies for session tracking. This is a little better for truly tracking a user's "session" rather than Session Storage.
 - More styled front end: The goal for this project was to be robust and clear. More time could be spent styling to make it more visually appealing.
-- Authenticated GitHubApp: This would allow for a higher API request rate and would be able to even more frequently update the framework data.
+- Authenticated GitHubApp: This would allow for a higher API request rate and thus more frequent updates to the framework data.
