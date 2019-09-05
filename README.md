@@ -1,6 +1,6 @@
 # LaunchPad Challenge
 
-LaunchPad Labs is working hard to evaluate popular client-side Javascript frameworks. They need a tool that will help them easily compare frameworks based on GitHub activity. This app shows how many users have starred a framework, the lifetime number of issues closed for the framework, and the number of commits to it for the past 2 weeks. After viewing the data users may vote for their preferred one by selecting the framework from a dropdown and then entering their email address.
+LaunchPad Labs is working hard to evaluate popular client-side Javascript frameworks. They need a tool that will help them easily compare frameworks based on GitHub activity. This app shows how many users have starred a framework, the lifetime number of issues closed for the framework, and the total number of commits to the framework over the last 2 weeks. After viewing the data users may vote for their preferred one by selecting the framework from a dropdown and then entering their email address.
 
 Click [here](https://launchpad-challenge.herokuapp.com/) to view a live demo of the app.
 

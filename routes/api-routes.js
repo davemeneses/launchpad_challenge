@@ -61,15 +61,15 @@ module.exports = function(app) {
   });
 
   app.get("/framework/:org/:framework", function(req, res) {
-    let reactData = {
-      name: "React"
+    let frameworkData = {
+      name: req.params.framework
     };
     axiosGH
       .get(
         `https://api.github.com/repos/${req.params.org}/${req.params.framework}`
       )
       .then(function(starData) {
-        reactData.stars = starData.data.stargazers_count;
+        frameworkData.stars = starData.data.stargazers_count;
         axiosGH
           .get(
             `https://api.github.com/repos/${req.params.org}/${req.params.framework}/stats/participation`
@@ -78,14 +78,14 @@ module.exports = function(app) {
             let twoWeekTotal =
               commitData.data.all[commitData.data.all.length - 1] +
               commitData.data.all[commitData.data.all.length - 2];
-            reactData.commits = twoWeekTotal;
+            frameworkData.commits = twoWeekTotal;
             axiosGH
               .get(
                 `https://api.github.com/search/issues?q=repo:${req.params.org}/${req.params.framework}+type:issue+state:closed`
               )
               .then(function(issueData) {
-                reactData.issues = issueData.data.total_count;
-                res.json(reactData);
+                frameworkData.issues = issueData.data.total_count;
+                res.json(frameworkData);
               });
           });
       })

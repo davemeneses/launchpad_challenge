@@ -112,8 +112,8 @@ class ResultsContainer extends Component {
                 <tr>
                   <th>Framework</th>
                   <th>Stars</th>
-                  <th>Lifetime Number of Issues Closed</th>
-                  <th>2 Week Commit Count</th>
+                  <th>Total Issues Closed</th>
+                  <th> 2 Week Commit Count</th>
                 </tr>
               </thead>
               <FrameworkData framework={"facebook/react"}></FrameworkData>

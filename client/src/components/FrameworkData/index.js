@@ -8,7 +8,15 @@ class FrameworkData extends React.Component {
     twoWeekCommits: 0,
     stars: 0
   };
+
   componentDidMount() {
+    this.setState({
+      name: this.props.framework,
+      issuesCount: "# of framework issues resolved",
+      twoWeekCommits: "# of issues committed in the past 2 weeks",
+      stars: "# of users who starred"
+    });
+
     axios.get(`/framework/${this.props.framework}`).then(data => {
       this.setState({
         name: data.data.name,
@@ -16,13 +24,6 @@ class FrameworkData extends React.Component {
         twoWeekCommits: data.data.commits,
         stars: data.data.stars
       });
-    });
-
-    this.setState({
-      name: this.props.framework,
-      issuesCount: "# of framework issues resolved",
-      twoWeekCommits: "# of issues committed in the past 2 weeks",
-      stars: "# of users who starred"
     });
 
     // this.dataReset();
