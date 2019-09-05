@@ -14,7 +14,7 @@ Click [here](https://launchpad-challenge.herokuapp.com/) to view a live demo of 
 
 4. Create a .env file and inside add `TOKEN_GHITHUB_ENTERPRISE=` with the value of a key you grab from [here](https://help.github.com/en/articles/creating-a-personal-access-token-for-the-command-line).
 
-5. In the `client` folder run the command `npm run build`
+5. In the `client` folder run the command `npm run build`.
 
 6. Navigate to `http://localhost:5000/` to view the app.
 
@@ -32,7 +32,7 @@ Click [here](https://launchpad-challenge.herokuapp.com/) to view a live demo of 
 
 **Capture a single vote for per email and browser session**
 
-I set up a MySQL DB using Sequelize to record both the user's email and their vote. I chose Sequelize because of it's ability to work both with MySQL and PostgresSQL DBs and the ability to make relational links between tables. I ended up not having to do any joins but because of the DB choice it would be easy to implement/scale if we wanted to add more questions/store more information in the future.
+I set up a MySQL DB using Sequelize to record both the user's email and their vote. I chose Sequelize because of it's ability to work both with MySQL and PostgreSQL DBs and the ability to make relational links between tables. I ended up not having to do any joins but because of the DB choice it would be easy to implement/scale if we wanted to add more questions/store more information in the future.
 
 When a user enters their information, selects a framework, and clicks submit several things happen.
 
@@ -40,7 +40,7 @@ When a user enters their information, selects a framework, and clicks submit sev
 - A call is made the the DB to check to see if the email has already submitted a vote.
 - A check is made in the Session Storage to see if "voted" is true or false.
 
-Each of these things independently will stop the vote from being submitted. After a successful vote is cast the user "voted" in Session Store is changed to "true, the user's information is sent to our DB, and the screen rerenders to the results page displaying the current number of votes for each framework.
+Each of these things independently will stop the vote from being submitted. After a successful vote is cast "voted" in Session Store is changed to "true, the user's information is sent to our DB, and the screen rerenders to the results page displaying the current number of votes for each framework.
 
 **Show updates to the dashboard without a refresh**
 
